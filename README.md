@@ -13,14 +13,14 @@
 
 ---
 ## Перед запуском  
-Изменить файл ***inventory***  
-  
+Изменить файл ***inventory:***  
 db_host ansible_host=[ip хоста] ansible_user=[пользователь ansible] ansible_password=[пароль пользователя ansible]  
   
 ***Например:***  
 db_host ansible_host=192.168.19.164 ansible_user=ansible ansible_password=ansible  
   
 P.s. убедиться что пользователь ansible, на  может использовать команды sudo без пароля, проверить можно в ***/etc/sudoers***  
+  
 Должна быть примерно такая строка:  
 ansible ALL=(ALL:ALL) NOPASSWD:ALL  
 Где вместо ansible ***ваш пользователь ansible***  
