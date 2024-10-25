@@ -13,7 +13,7 @@
 
 ---
 ## Перед запуском  
-Изменить файл inventory  
+Изменить файл ***inventory***  
   
 db_host ansible_host=[ip хоста] ansible_user=[пользователь ansible] ansible_password=[пароль пользователя ansible]  
   
