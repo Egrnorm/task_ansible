@@ -3,7 +3,7 @@
 
 ---
 ## ВАЖНО  
-В playbook используется модуль ***community.postgresql.postgresql_set***, который является частью коллекции ***community.postgresql***, который не включена в ***ansible-core***  
+В playbook используется модуль ***community.postgresql.postgresql_set***, которая является частью коллекции ***community.postgresql***, который не включена в ***ansible-core***  
   
 Чтобы проверить установлена ли коллекция:  
 ***ansible-galaxy collection list | grep community.postgresql*** 
