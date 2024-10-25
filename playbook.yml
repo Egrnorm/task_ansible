@@ -1,0 +1,106 @@
+- hosts: db_host
+
+  tasks:
+    - name: add repository postgresql
+      become: yes
+      apt:
+        name: postgresql-common
+        state: present
+        update_cache: yes
+
+    - name: install lib pexpect and psycopg2
+      become: yes
+      apt:
+        pkg:
+          - python3-pexpect
+          - python3-psycopg2
+        state: present
+
+    - name: start script
+      expect:
+        command: /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+        responses:
+          'Press Enter to continue, or Ctrl-C to abort': ''
+      become: yes
+
+    - name: download postgresql16
+      become: yes
+      apt:
+        pkg:
+          - postgresql-16
+          - postgresql-contrib-16
+        state: present
+        update_cache: yes
+
+    - name: creating folder for archives
+      become: yes
+      file:
+        path: /pgarchive
+        state: directory
+        owner: postgres
+        group: postgres
+        mode: '0770'
+    - name: creating folder for logs
+      become: yes
+      file:
+        recurse: yes
+        path: /pgcluster/log
+        state: directory
+        owner: postgres
+        group: postgres
+        mode: '0770'
+
+    - name: start postgresql16 service
+      become: yes
+      service:
+        name: postgresql
+        state: started
+        enabled: yes
+
+    - name: configure postgresql16
+      become: yes
+      become_user: postgres
+      community.postgresql.postgresql_set:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        port: 1313 #ПОТОМ УБРАТЬ НАХУЙ
+      with_dict:
+        listen_addresses: '*'
+        wal_level: 'replica'
+        archive_mode: 'on'
+        archive_command: 'cp %p /pgarchive/%f'
+        log_directory: '/pgcluster/log'
+        log_filename: 'postgresql-%Y%m%d_%H%M.log'
+        logging_collector: 'on'
+        log_rotation_age: '7d'
+        log_rotation_size: '10MB'
+        log_truncate_on_rotation: 'off'
+        log_line_prefix: '%t %c'
+        log_connections: 'on'
+        log_disconnections: 'on'
+        log_statement: 'ddl'
+        port: '1313'
+
+    - name: restart postgres service
+      become: yes
+      service:
+        name: postgresql
+        state: restarted
+
+    - name: install iptables
+      become: yes
+      apt:
+        name: iptables
+        state: present
+        update_cache: yes
+
+    - name: setting iptables
+      become: yes
+      command: "{{ item }}"
+      with_items:
+        - iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+        - iptables -A INPUT -p tcp -m state --state NEW --dport 22 -j ACCEPT
+        - iptables -A INPUT -p tcp -m state --state NEW --dport 1313 -j ACCEPT
+        - iptables -A OUTPUT -j ACCEPT
+        - iptables -A INPUT -j DROP
+        - iptables -A FORWARD -j DROP
