@@ -14,7 +14,7 @@
 ---
 ## Перед запуском  
 Изменить файл ***inventory:***  
-db_host ansible_host=[ip хоста] ansible_user=[пользователь ansible] ansible_password=[пароль пользователя ansible]  
+db_host ansible_host=[ip удалённого хоста] ansible_user=[пользователь ansible] ansible_password=[пароль пользователя ansible]  
   
 ***Например:***  
 db_host ansible_host=192.168.19.164 ansible_user=ansible ansible_password=ansible  
@@ -28,4 +28,10 @@ ansible ALL=(ALL:ALL) NOPASSWD:ALL
 ---
 ## Запуск  
 ansible-playbook playbook.yml
+## ВАЖНО  
+Также в плейбуке используется iptables, который блокирует все порты, кроме порта для postgres и ssh.  
+В случае, если на удалённом хосте ssh работает на отличном от дефолтного порта, то нужно поменять в playbook.yml следующую строку:  
+- iptables -A INPUT -p tcp -m state --state NEW --dport 22 -j ACCEPT  
+На  
+- iptables -A INPUT -p tcp -m state --state NEW --dport [ваш порт] -j ACCEPT
 
