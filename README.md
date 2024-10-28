@@ -5,15 +5,15 @@
 ## ВАЖНО  
 В playbook используется модуль ***community.postgresql.postgresql_set***, который является частью коллекции ***community.postgresql***. Возможно, эта коллекция уже установлена, если вы используете ***ansible*** пакет, но она не включена в ***ansible-core***  
   
-Чтобы проверить установлена ли коллекция:  
-***ansible-galaxy collection list | grep community.postgresql*** 
+1. ##### Чтобы проверить установлена ли коллекция:  
+- **ansible-galaxy collection list | grep community.postgresql** 
   
-Для установки коллекции:  
-***ansible-galaxy collection install community.postgresql***  
+2. ##### Для установки коллекции:  
+- **ansible-galaxy collection install community.postgresql**  
 
 ---
 ## Перед запуском  
-Изменить файл ***inventory:***  
+Изменить файл **inventory:**  
 db_host ansible_host=[ip удалённого хоста] ansible_user=[пользователь ansible] ansible_password=[пароль пользователя ansible]  
   
 ***Например:***  
