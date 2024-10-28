@@ -24,6 +24,9 @@
 - `ansible ALL=(ALL:ALL) NOPASSWD:ALL`  
 - Где вместо ansible **ваш пользователь ansible**  
 
+3. Убедиться что ssh работает на удалённом хосте
+- `systemctl start ssh`  
+- `systemctl status ssh`  
 ---
 ## Запуск  
 - `ansible-playbook playbook.yml`
