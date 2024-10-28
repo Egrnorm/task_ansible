@@ -26,11 +26,11 @@
 
 ---
 ## Запуск  
-- ansible-playbook playbook.yml
+- `ansible-playbook playbook.yml`
 ## ВАЖНО  
 Также в плейбуке используется iptables, который блокирует все порты, кроме порта для postgres и ssh.  
 В случае, если на удалённом хосте ssh работает на отличном от дефолтного порта, то нужно поменять в playbook.yml следующую строку:  
 - `iptables -A INPUT -p tcp -m state --state NEW --dport 22 -j ACCEPT`  
-На  
+#### На  
 - `iptables -A INPUT -p tcp -m state --state NEW --dport [ваш порт] -j ACCEPT`
 
