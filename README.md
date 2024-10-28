@@ -6,10 +6,10 @@
 В playbook используется модуль ***community.postgresql.postgresql_set***, который является частью коллекции ***community.postgresql***. Возможно, эта коллекция уже установлена, если вы используете ***ansible*** пакет, но она не включена в ***ansible-core***  
   
 1. ##### Чтобы проверить установлена ли коллекция:  
-- **ansible-galaxy collection list | grep community.postgresql** 
+- `ansible-galaxy collection list | grep community.postgresql` 
   
 2. ##### Для установки коллекции:  
-- **ansible-galaxy collection install community.postgresql**  
+- `ansible-galaxy collection install community.postgresql`  
 
 ---
 ## Перед запуском  
