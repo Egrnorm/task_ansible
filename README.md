@@ -20,10 +20,9 @@
 - `db_host ansible_host=192.168.19.164 ansible_user=ansible ansible_password=ansible`  
   
 2. Убедиться что пользователь ansible, на  может использовать команды sudo без пароля, проверить можно в `/etc/sudoers`  
-  
-Должна быть примерно такая строка:  
-`ansible ALL=(ALL:ALL) NOPASSWD:ALL`  
-Где вместо ansible **ваш пользователь ansible**  
+- Должна быть примерно такая строка:  
+- `ansible ALL=(ALL:ALL) NOPASSWD:ALL`  
+- Где вместо ansible **ваш пользователь ansible**  
 
 ---
 ## Запуск  
